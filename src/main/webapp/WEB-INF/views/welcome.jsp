@@ -10,9 +10,9 @@
 	<body>
 	Greeting : ${greeting}
 	<br>
-	<input type="text" id="text1">
+	<input type="text" id="text1" name="text1">
 	<br>
-	<input type="text" id="text2">
+	<input type="text" id="text2" name="text2">
 	<br>
 	<input type="submit" value="Submit" id="button_submit"/>
 	</body>

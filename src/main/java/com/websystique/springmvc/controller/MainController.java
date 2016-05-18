@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -26,7 +27,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value ="/saveconfig", method = RequestMethod.POST)
-	public String result(String text1, String text2, Model model){
+	public String result(@RequestParam String text1, @RequestParam String text2, Model model){
 
 		model.addAttribute("greeting", "Hello again");
 		return "welcome";
