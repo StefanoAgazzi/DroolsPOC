@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="GeneraliDroolsPOC:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="GeneraliDroolsPOC.war">
+      <element id="artifact" artifact-name="GeneraliDroolsPOC:war exploded" />
+    </root>
+  </artifact>
+</component>
