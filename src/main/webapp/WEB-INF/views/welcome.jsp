@@ -6,7 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Generali Drools POC</title>
 </head>
-<body>
+<form:form method="POST" action="saveconfig">
+	<body>
 	Greeting : ${greeting}
-</body>
+	<br>
+	<input type="text" id="text1">
+	<br>
+	<input type="text" id="text2">
+	<br>
+	<input type="submit" value="Submit" id="button_submit"/>
+	</body>
+</form:form>
 </html>
