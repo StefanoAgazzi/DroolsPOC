@@ -27,7 +27,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GeneraliDroolsPOC" target="1.6" />
+      <module name="GeneraliDroolsPOC" target="1.5" />
       <module name="Spring4MVCHelloWorldDemo" target="1.5" />
     </bytecodeTargetLevel>
   </component>
