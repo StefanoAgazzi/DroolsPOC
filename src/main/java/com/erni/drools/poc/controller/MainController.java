@@ -3,9 +3,11 @@ package com.erni.drools.poc.controller;
 import com.sun.xml.internal.ws.developer.Serialization;
 import org.apache.taglibs.standard.resources.Resources;
 import org.drools.KnowledgeBase;
+import org.drools.builder.KnowledgeBuilder;
 import org.drools.compiler.lang.DrlDumper;
 import org.drools.compiler.lang.api.DescrFactory;
 import org.drools.compiler.lang.api.PackageDescrBuilder;
+import org.drools.compiler.lang.descr.*;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
 import org.kie.api.io.Resource;
@@ -113,7 +115,7 @@ public class MainController {
             throw new RuntimeException("Failed to load drools resource file.", e);
         }
     }
-
+/*
     private static void addRule(){
         final KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
         Collection<KnowledgePackage> pkgs;
@@ -144,7 +146,7 @@ public class MainController {
         ksession.fireAllRules();
         ksession.dispose();
     }
-
+*/
     private void addDrlFile(){
         // -------package section-------
         PackageDescr pkg=new PackageDescr();
