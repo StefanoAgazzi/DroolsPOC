@@ -154,7 +154,7 @@ public class MainController {
 
 // -------import section here-------
         ImportDescr importEntry1= new ImportDescr();
-        importEntry1.setTarget("com.erni.drools.model.Account");
+        importEntry1.setTarget("com.erni.drools.poc.model.Account");
         pkg.addImport(importEntry1);
         /*ImportDescr importEntry2= new ImportDescr();
         importEntry2.setTarget("com.demo.model.PotentialCustomer");
@@ -198,7 +198,7 @@ public class MainController {
 */
 
         patternEntry1.addConstraint(red1);
-       // patternEntry1.addConstraint(red2);
+        //patternEntry1.addConstraint(red2);
         lhs.addDescr(patternEntry1);
 /*
         NotDescr notDescr=new NotDescr();
@@ -215,6 +215,7 @@ public class MainController {
         RelationalExprDescr red11=new RelationalExprDescr("==",false, null, ecd11,ecd12);
         pattDescr1.addConstraint(red11);
         notDescr.addDescr(pattDescr1);
+
         lhs.addDescr(notDescr);
 */
 
@@ -222,7 +223,6 @@ public class MainController {
 
         pkg.addRule(ruleEntry);
         String s = new DrlDumper().dump( pkg );
-        System.out.println("SSSS -> " + s);
         // here drl is in form of String
         createFile(s);
     }
