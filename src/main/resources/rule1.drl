@@ -1,10 +1,10 @@
-package  com.erni.drools.poc
+package com.erni.drools.rules 
 
-import com.erni.drools.poc.model.Account;
-
-rule "accountBalanceAtLeast"
+rule "accountBalanceAtLeast2"
 when
-$account : Account( balance < 100 )
+    $account : com.erni.drools.poc.model.Account( balance < 200 )  
 then
-System.out.println("Warning! money running out!");
+System.out.println("Accountttt nullpointer");
 end
+
+

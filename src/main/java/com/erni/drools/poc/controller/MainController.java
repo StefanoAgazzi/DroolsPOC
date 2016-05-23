@@ -1,5 +1,6 @@
 package com.erni.drools.poc.controller;
 
+import com.erni.drools.poc.model.Account;
 import com.sun.xml.internal.ws.developer.Serialization;
 import org.apache.taglibs.standard.resources.Resources;
 import org.drools.KnowledgeBase;
@@ -180,7 +181,7 @@ public class MainController {
 //-------  pattern starts here -------
         PatternDescr patternEntry1=new PatternDescr();
         patternEntry1.setIdentifier("$account");
-        patternEntry1.setObjectType("Account");
+        patternEntry1.setObjectType(Account.class.getName());
 
 //------- ExprConstraint starts here -------
         ExprConstraintDescr ecd1=new ExprConstraintDescr();
@@ -189,6 +190,8 @@ public class MainController {
         ecd2.setExpression("200");
 //-------  Added exprConstraint into relational expr-------
         RelationalExprDescr red1=new RelationalExprDescr("<",false, null, ecd1, ecd2);
+
+
 /*
         ExprConstraintDescr ecd3=new ExprConstraintDescr();
         ecd3.setExpression("subTotal");
@@ -198,6 +201,8 @@ public class MainController {
 */
 
         patternEntry1.addConstraint(red1);
+
+
         //patternEntry1.addConstraint(red2);
         lhs.addDescr(patternEntry1);
 /*
@@ -218,8 +223,8 @@ public class MainController {
 
         lhs.addDescr(notDescr);
 */
-
         ruleEntry.setLhs(lhs);
+        ruleEntry.setConsequence("System.out.println(\"Accountttt nullpointer\");");
 
         pkg.addRule(ruleEntry);
         String s = new DrlDumper().dump( pkg );
