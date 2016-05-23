@@ -18,6 +18,5 @@ public class RuleExecuter {
 		Account account = new Account(200);
 		account.withdraw(150);
 		ksession.execute(account);
-
 	}
 }

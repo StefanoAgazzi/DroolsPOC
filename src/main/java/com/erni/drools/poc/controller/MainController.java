@@ -1,21 +1,11 @@
 package com.erni.drools.poc.controller;
 
-import com.erni.drools.poc.model.Account;
 import com.sun.xml.internal.ws.developer.Serialization;
 import org.apache.taglibs.standard.resources.Resources;
 import org.drools.KnowledgeBase;
-import org.drools.KnowledgeBaseFactory;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.compiler.lang.DrlDumper;
 import org.drools.compiler.lang.api.DescrFactory;
 import org.drools.compiler.lang.api.PackageDescrBuilder;
-import org.drools.compiler.lang.api.impl.PackageDescrBuilderImpl;
-import org.drools.compiler.lang.descr.*;
-import org.drools.core.io.impl.ByteArrayResource;
-import org.drools.definition.KnowledgePackage;
-import org.drools.io.ResourceFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
 import org.kie.api.io.Resource;
