@@ -7,24 +7,31 @@
     <title>Generali Drools POC</title>
 </head>
 <body>
-
 <form method="post" action="saverule">
     <h4>Rule "Check Bakance"</h4>
     <br/>
     WHEN
     <br/>
     <br/>
-    <input type="text" id="when-entity" name="when-entity">
-    <br/>
-    <br/>
-    <select name="when-condition">
-        <option value="lt"><</option>
-        <option value="eq">=</option>
-        <option value="gt">></option>
+    <select name="when_entity">
+        <option value="account">Account</option>
+        <option value="user">User</option>
+    </select>
+    .
+    <select name="when_entity_field">
+        <option value="balance">balance</option>
+        <option value="user">user</option>
     </select>
     <br/>
     <br/>
-    <input type="text" id="when-condition-value" name="when-condition-value">
+    <select name="when_condition">
+        <option value="<"><</option>
+        <option value="=">=</option>
+        <option value=">">></option>
+    </select>
+    <br/>
+    <br/>
+    <input type="text" id="when_condition_value" name="when_condition_value">
     <br/>
     <br/>
     THEN
@@ -39,5 +46,4 @@
     <input type="submit" value="RUN RULE" id="run_rule"/>
 </form>
 </body>
-</form>
 </html>
