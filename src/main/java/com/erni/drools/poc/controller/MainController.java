@@ -39,9 +39,9 @@ public class MainController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/saveconfig", method = RequestMethod.POST)
+    @RequestMapping(value = "/saverule", method = RequestMethod.POST)
     public String result(@RequestParam String text1, @RequestParam String text2, Model model) {
-        build();
+//        build();
         model.addAttribute("greeting", "Hello again");
         return "welcome";
     }
@@ -54,7 +54,7 @@ public class MainController {
                 "GeneraliDroolsPOC", "1.0.0");
         kieFileSystem.generateAndWritePomXML(rid);
 
-        kieFileSystem.write("/src/main/resources/rule1.drl",getResource(kieServices, "rule1.drl"));
+        kieFileSystem.write("/src/main/resources/suspend_user_with_negative_balance.drl",getResource(kieServices, "suspend_user_with_negative_balance.drl"));
 
         addRule(kieFileSystem);
 
@@ -82,7 +82,7 @@ public class MainController {
                 .end();
 
         String rules = new DrlDumper().dump(packageDescrBuilder.getDescr());
-        kieFileSystem.write("src/main/resources/rule1.drl", rules);
+        kieFileSystem.write("src/main/resources/suspend_user_with_negative_balance.drl", rules);
     }
 
     private Resource getResource(KieServices kieServices, String resourcePath) {

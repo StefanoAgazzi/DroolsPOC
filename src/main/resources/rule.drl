@@ -1,6 +1,7 @@
 package  com.erni.drools.poc
 
 import com.erni.drools.poc.model.Account;
+import java.math.BigDecimal;
 
 rule "accountBalanceAtLeast"
 when

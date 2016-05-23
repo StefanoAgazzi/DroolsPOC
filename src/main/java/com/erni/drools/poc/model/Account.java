@@ -1,20 +1,42 @@
 package com.erni.drools.poc.model;
- 
 
-public class Account {
-	private Integer balance;
-	public Account() {}
-	public Integer getBalance() {
-		return balance;
-	}
-	public void setBalance(Integer balance) {
-		this.balance = balance;
-	}
-	public Account(Integer balance) {
-		super();
-		this.balance = balance;
-	}
-	public void withdraw(int money) {
-		balance -= money;
-	}
+
+import java.math.BigDecimal;
+
+public class Account implements java.io.Serializable {
+
+    static final long serialVersionUID = 1L;
+
+    private long balance;
+
+    private long user;
+
+    public Account() {
+    }
+
+    public long getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+    public java.lang.Long getUser() {
+        return this.user;
+    }
+
+    public void setUser(java.lang.Long user) {
+        this.user = user;
+    }
+
+    public Account(long balance, long user) {
+        this.balance = balance;
+        this.user = user;
+    }
+
+    public void withdraw(long money) {
+        balance -= money;
+    }
+
 }
