@@ -1,23 +1,21 @@
 package com.erni.drools.poc.controller;
 
-import com.erni.drools.poc.model.Account;
-import com.sun.xml.internal.ws.developer.Serialization;
-import org.apache.taglibs.standard.resources.Resources;
-import org.drools.KnowledgeBase;
-import org.drools.builder.KnowledgeBuilder;
+import com.erni.drools.poc.dao.RuleDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.drools.compiler.lang.DrlDumper;
 import org.drools.compiler.lang.api.DescrFactory;
 import org.drools.compiler.lang.api.PackageDescrBuilder;
 import org.drools.compiler.lang.descr.*;
 import org.kie.api.KieServices;
-import org.kie.api.builder.*;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.Message;
+import org.kie.api.builder.ReleaseId;
 import org.kie.api.io.Resource;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.xml.ResourceEntityResolver;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,12 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletContext;
 import java.io.*;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/")
@@ -41,29 +37,31 @@ public class MainController {
     @Autowired
     ServletContext context;
 
-    @Bean
-    public KieContainer kieContainer() throws IOException {
-        KieServices ks = KieServices.Factory.get();
-        return ks.getKieClasspathContainer();
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public String sayHello(ModelMap model) {
-        model.addAttribute("greeting", "Hello from Generali Drools POC");
         return "welcome";
     }
 
+    @RequestMapping(value = "/saverule", method = RequestMethod.POST)
+    //TODO it is better to use a single Collection to map all the request params instead of using many @RequestParam
+    public String result(@RequestParam String when_entity, @RequestParam String when_condition, @RequestParam String when_condition_value, @RequestParam String when_entity_field, Model model) {
+        RuleDAO dao = new RuleDAO();
+        HashMap<String, String> ruleParams = new HashMap<>();
 
-    @RequestMapping(value = "/helloagain", method = RequestMethod.GET)
-    public String sayHelloAgain(ModelMap model) {
-        model.addAttribute("greeting", "Hello again");
-        return "welcome";
-    }
+        //TODO check isBlank()
+        ruleParams.put("when_entity", when_entity);
+        ruleParams.put("when_condition", when_condition);
+        ruleParams.put("when_condition_value", when_condition_value);
+        ruleParams.put("when_entity_field", when_entity_field);
 
-    @RequestMapping(value = "/saveconfig", method = RequestMethod.POST)
-    public String result(@RequestParam String text1, @RequestParam String text2, Model model) {
-        addDrlFile();
-        model.addAttribute("greeting", "Hello again");
+        try {
+            dao.saveRule(ruleParams, context);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        addDrlFile(ruleParams);
+
         return "welcome";
     }
 
@@ -148,7 +146,14 @@ public class MainController {
         ksession.dispose();
     }
 */
-    private void addDrlFile(){
+    private void addDrlFile(HashMap<String, String> ruleParams){
+
+        String when_entity = ruleParams.get("when_entity");
+        String when_condition = ruleParams.get("when_condition");
+        String when_condition_value = ruleParams.get("when_condition_value");
+        String when_entity_field = ruleParams.get("when_entity_field");
+
+
         // -------package section-------
         PackageDescr pkg=new PackageDescr();
         pkg.setName("com.erni.drools.rules");
@@ -181,15 +186,17 @@ public class MainController {
 //-------  pattern starts here -------
         PatternDescr patternEntry1=new PatternDescr();
         patternEntry1.setIdentifier("$account");
-        patternEntry1.setObjectType(Account.class.getName());
+
+//        patternEntry1.setObjectType(Account.class.getName());
+        patternEntry1.setObjectType(when_entity);
 
 //------- ExprConstraint starts here -------
         ExprConstraintDescr ecd1=new ExprConstraintDescr();
-        ecd1.setExpression("balance");
+        ecd1.setExpression(when_entity_field);
         ExprConstraintDescr ecd2=new ExprConstraintDescr();
-        ecd2.setExpression("200");
+        ecd2.setExpression(when_condition_value);
 //-------  Added exprConstraint into relational expr-------
-        RelationalExprDescr red1=new RelationalExprDescr("<",false, null, ecd1, ecd2);
+        RelationalExprDescr red1=new RelationalExprDescr(when_condition,false, null, ecd1, ecd2);
 
 
 /*
@@ -236,17 +243,21 @@ public class MainController {
         Writer writer = null;
         URL resourceUrl = null;
         try {
-            Enumeration<URL> urls = context.getClassLoader().getResources("rule1.drl");
+            Enumeration<URL> urls = context.getClassLoader().getResources("coded_rule.drl");
             resourceUrl = urls.nextElement();
         } catch (IOException ex) {
             System.out.println(ex);
         }
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(new File(resourceUrl.toURI()))));
+            String path = resourceUrl.getPath();
+//            if (StringUtils.startsWith(path, "/")){
+//                path = StringUtils.substring(path, 1);
+//            }
+
+            path = StringUtils.startsWith(path, "/") ? StringUtils.substring(path, 1) : path;
+
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(path))));
             writer.write(s);
-        }catch(URISyntaxException ex){
-            System.out.println(ex);
         }catch (IOException ex) {
             System.out.println(ex);
         } finally {
