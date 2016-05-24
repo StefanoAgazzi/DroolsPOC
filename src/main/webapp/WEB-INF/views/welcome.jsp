@@ -39,11 +39,5 @@
     <br/>
     <input type="submit" value="SAVE RULE" id="save_rule"/>
 </form>
-<br/>
-<br/>
-<form method="post" action="runrule">
-    <h4>Execute run on test data</h4>
-    <input type="submit" value="RUN RULE" id="run_rule"/>
-</form>
 </body>
 </html>
