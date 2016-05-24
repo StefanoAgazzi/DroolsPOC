@@ -6,9 +6,9 @@ global org.slf4j.Logger logger
 
 rule "accountBalanceAtLeast2"
 when
-    $account : Account( balance = 300 )
+    $account : Account( balance > 980 )  
 then
-System.out.println(balance = 300);
+System.out.println($account.balance > 980);
 end
 
 
