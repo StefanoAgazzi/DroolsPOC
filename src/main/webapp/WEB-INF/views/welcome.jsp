@@ -14,8 +14,8 @@
     <br/>
     <br/>
     <select name="when_entity">
-        <option value="account">Account</option>
-        <option value="user">User</option>
+        <option value="Account">Account</option>
+        <option value="User">User</option>
     </select>
     .
     <select name="when_entity_field">
