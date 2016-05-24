@@ -250,10 +250,6 @@ public class MainController {
         }
         try {
             String path = resourceUrl.getPath();
-//            if (StringUtils.startsWith(path, "/")){
-//                path = StringUtils.substring(path, 1);
-//            }
-
             path = StringUtils.startsWith(path, "/") ? StringUtils.substring(path, 1) : path;
 
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(path))));
