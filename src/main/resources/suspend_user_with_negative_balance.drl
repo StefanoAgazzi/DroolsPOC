@@ -1,0 +1,17 @@
+package  com.erni.drools.poc
+
+import java.lang.Number;
+import com.erni.drools.poc.model.Account;
+import com.erni.drools.poc.model.User;
+import java.math.BigDecimal;
+
+rule "suspend_user_with_negative_balance"
+	when
+		$account : Account( balance < ( -500 ) )
+		$user : User( name == $account.user )
+	then
+	    System.out.println("Warning! User Suspended");
+		modify( $user ) {
+				setSuspended( true )
+		}
+end
