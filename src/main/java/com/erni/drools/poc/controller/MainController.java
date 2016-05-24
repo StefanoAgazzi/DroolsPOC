@@ -231,7 +231,7 @@ public class MainController {
         lhs.addDescr(notDescr);
 */
         ruleEntry.setLhs(lhs);
-        ruleEntry.setConsequence("System.out.println(\"Accountttt nullpointer\");");
+        ruleEntry.setConsequence("System.out.println(balance" + " " + when_condition + " " + when_condition_value + ");");
 
         pkg.addRule(ruleEntry);
         String s = new DrlDumper().dump( pkg );
@@ -243,7 +243,7 @@ public class MainController {
         Writer writer = null;
         URL resourceUrl = null;
         try {
-            Enumeration<URL> urls = context.getClassLoader().getResources("coded_rule.drl");
+            Enumeration<URL> urls = context.getClassLoader().getResources("rule1.drl");
             resourceUrl = urls.nextElement();
         } catch (IOException ex) {
             System.out.println(ex);
